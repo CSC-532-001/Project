@@ -3,6 +3,8 @@ from PIL import Image
 from scipy.fftpack import *
 from math import *
 
+# ChatGPT did assist with some code 04/23/2024.
+
 def loadImage(file):
     image = Image.open(file).convert('RGB') # Opens file into a bitmap and converts to RGB.
     # newLine = print()
@@ -96,4 +98,10 @@ image = loadImage(r'Images\Soccer_Ball.jpg')
 imageCompressed = compressImage(image)
 result = Image.fromarray(imageCompressed, 'YCbCr').convert('RGB')
 result.show()
+
+'''
+Results are saved in Results Folder
+
+'''
+
 result.save('Results/compressedImageSoccer.jpg', 'JPEG')
