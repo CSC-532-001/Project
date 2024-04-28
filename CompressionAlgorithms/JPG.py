@@ -3,18 +3,13 @@ from PIL import Image
 from scipy.fftpack import *
 from math import *
 
-# ChatGPT did assist with some code 04/23/2024.
+# ChatGPT did assist with some code on 04/23/2024.
 
 def loadImage(file):
     image = Image.open(file).convert('RGB') # Opens file into a bitmap and converts to RGB.
-    # newLine = print()
-    # print(image)
     imageArray = np.array(image)
     space2 = '  ' # Just used to make 2 spaces for formating
-    print(space2 + 'Red' + space2 + 'Green' + space2 + 'Blue')
-    print(imageArray)
     imageYCBCR = rgbToYCBCR(imageArray)
-    print(imageYCBCR)
     return imageYCBCR
 
 def rgbToYCBCR(image):
@@ -27,21 +22,11 @@ def rgbToYCBCR(image):
     return np.uint8(imageYCBCR) # This will convert imageYCBCR to an unsigned 8-bit integer. It can clips values outside 0 - 255 range. This can cause minor lossyness.
 
 def compressImage(image, blockSize = int(8), quality = int(50)):
-    # height, width, _ = image.shape # Assigns variables to the tuple of image.shape from NumPy
-    # compressedImage = np.zeros((height, width, 3), dtype = np.float32) # Creates a matrix 3 x 3 matrix full of zeros.
-
-    # Pad the image
     originalHeight, originalWidth, _ = image.shape
     paddedImage = padImageToBlockSize(image, blockSize)
-    height, width, _ = paddedImage.shape
-    compressedImage = np.zeros((height, width, 3), dtype=np.float32)
+    height, width, _ = paddedImage.shape # height, width, _ = image.shape # Assigns variables to the tuple of .shape from NumPy
+    compressedImage = np.zeros((height, width, 3), dtype=np.float32) # compressedImage = np.zeros((height, width, 3), dtype = np.float32) # Creates a matrix 3 x 3 matrix full of zeros.
     quantTable = quantizationTable(quality)
-    
-    print(compressedImage) # An example if you want to see it
-
-    quantTable = quantizationTable(quality)
-    print()
-    print(quantTable)
 
     for channel in range(3):
         for i in range(0, height, blockSize):
@@ -54,9 +39,9 @@ def compressImage(image, blockSize = int(8), quality = int(50)):
                     compressedImage[i:i+blockSize, j:j+blockSize, channel] = idctBlock
 
     print(compressedImage)
+    
     # Crop the padded areas off the compressed image
     compressedImage = compressedImage[:originalHeight, :originalWidth, :]
-
     return np.clip(compressedImage, 0, 255).astype(np.uint8)
 
     
@@ -91,6 +76,7 @@ def padImageToBlockSize(image, blockSize):
                           ((0, padHeight), (0, padWidth), (0, 0)), 
                           'edge')
     return paddedImage
+
 # print("Pick your quality 1-99, less quality means compression")
 # uInput = int(input())
 
