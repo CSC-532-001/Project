@@ -2,6 +2,8 @@
 
 import os
 import pandas as pd
+from params import TrainingParams
+import numpy as np
 
 tparam = TrainingParams(verbose=False)
 

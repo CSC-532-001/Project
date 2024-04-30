@@ -6,7 +6,7 @@
 #       GAP based on https://github.com/jazzsaxmafia/Weakly_detector/blob/master/src/detector.py
 #       Conv2d layer based on https://github.com/carpedm20/DCGAN-tensorflow/blob/master/ops.py
 
-import tensorflow.compat.v1 as tf
+import tensorflow._api.v2.compat.v1 as tf
 
 tf.disable_v2_behavior()
 import numpy as np

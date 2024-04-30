@@ -23,9 +23,7 @@ import numpy as np
 from model import CNN
 from params import HyperParams
 import skimage.io
-
-
-import tensorflow.compat.v1 as tf
+import tensorflow._api.v2.compat.v1 as tf
 
 tf.disable_v2_behavior()
 hyper = HyperParams(verbose=False)

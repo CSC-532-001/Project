@@ -2,7 +2,7 @@ from __future__ import division
 from __future__ import print_function
 import math
 import os
-import tensorflow.compat.v1 as tf
+import tensorflow._api.v2.compat.v1 as tf
 
 tf.disable_v2_behavior()
 import numpy as np
@@ -86,7 +86,7 @@ with tf.Session() as sess:
     # for the pretty pretty tensorboard
     summary_writer = tf.train.SummaryWriter("tensorboards", sess.graph)
 
-    for epoch in xrange(tparam.num_epochs):
+    for epoch in range(tparam.num_epochs):
 
         start = time()
         # Training
