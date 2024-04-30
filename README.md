@@ -7,9 +7,8 @@ The code seen here assists with the analysis of multiple lossy image compression
 # Package Guidance
 
 Ensure installation of neccessary packages/libraries to run this project. This includes sewar, numpy, pywavelets, matplotlib, pandas, scikit-image (aka skimage), and tensorflow. 
-If using VS Code, do the following:
 
-Within the VS Code command (cmd) terminal, run:
+If using VS Code, within the VS Code command (cmd) terminal, run the following:
 + `py -m pip install sewar`
 + `py -m pip install numpy`
 + `py -m pip install PyWavelets`
