@@ -34,7 +34,7 @@ def rgbToYCBCR(image):
     )  # This will convert imageYCBCR to an unsigned 8-bit integer. It can clips values outside 0 - 255 range. This can cause minor lossyness.
 
 
-def compressImage(image, blockSize=int(8), quality=int(50)):
+def compressImage(image, blockSize=int(8), quality=int(20)):
     originalHeight, originalWidth, _ = image.shape
     paddedImage = padImageToBlockSize(image, blockSize)
     (

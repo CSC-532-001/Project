@@ -20,26 +20,30 @@ warnings.filterwarnings("ignore")
 def main():
     # Collects all images to be processed and their simple names (not filepaths).
     imagesToRun, names = directorySearch()
-    print("Image\tAlgorithm\tRuntime\tMSE\tPSNR\tSSIM\tUQI")
+    print("Enter 1 for DCT, 2 for DWT, and 3 for BTC.")
+    userInput = int(input("Enter a value: "))
+    print("\nImage\tAlgorithm\tRuntime\tMSE\tPSNR\tSSIM\tUQI\tComp Ratio")
+
+    match userInput:
+        case 1:
+            # DCT Testing
+            countDCT = 0
+            for givenImage in (imagesToRun):
+                dctAnalyzer(givenImage, names[countDCT])
+                countDCT += 1
+        case 2:
+        # DWT Testing
+            countDWT = 0
+            for givenImage in (imagesToRun):
+                dwtAnalyzer(givenImage, names[countDWT])
+                countDWT += 1 
+        case 3:
+            # BTC Testing
+            countBTC = 0
+            for givenImage in (imagesToRun):
+                btcAnalyzer(givenImage, names[countBTC])
+                countBTC += 1 
     
-    # # DCT Testing
-    countDCT = 0
-    for givenImage in (imagesToRun):
-        dctAnalyzer(givenImage, names[countDCT])
-        countDCT += 1
-
-    # DWT Testing
-    countDWT = 0
-    for givenImage in (imagesToRun):
-        dwtAnalyzer(givenImage, names[countDWT])
-        countDWT += 1 
-
-    # BTC Testing
-    # countBTC = 0
-    # for givenImage in (imagesToRun):
-    #     btcAnalyzer(givenImage, names[countBTC])
-    #     countBTC += 1 
-
 
 
 def directorySearch():
@@ -67,17 +71,25 @@ def dctAnalyzer(givenImage, name):
         # Converts image from 1 color channel to RGB 3 channel.
         inputImage = cv2.cvtColor(inputImage, cv2.COLOR_GRAY2RGB)
 
+    
+
     # DCT Analysis
     startTime = time.perf_counter()
-    compressedImage = compressImage(inputImage)
+    compressedImage = cv2.dct(np.float32(cv2.cvtColor(inputImage, cv2.COLOR_BGR2GRAY)))
     endTime = time.perf_counter()
     # The four quality metrics used for this project. 
+    compressedImage = cv2.cvtColor(compressedImage, cv2.COLOR_GRAY2RGB)
     MSE = metrics.mse(inputImage, compressedImage)
     PSNR = metrics.psnr(inputImage, compressedImage)
     SSIM = metrics.ssim(inputImage, compressedImage)
     UQI = metrics.uqi(inputImage, compressedImage)
 
-    print(name + "\tDCT" + "\t" + (f"{endTime-startTime:.2f}") + "\t" + (f"{MSE:.2f}") + "\t" +  (f"{PSNR:.2f}") + "\t" +  str(SSIM) + "\t" +  (f"{UQI:.2f}"))
+    # Compression ratio for the image.
+    inputSize = inputImage.nbytes
+    outputSize = compressedImage.nbytes
+    compRatio = outputSize/inputSize
+
+    print(name + "\tDCT" + "\t" + (f"{endTime-startTime:.2f}") + "\t" + (f"{MSE:.2f}") + "\t" +  (f"{PSNR:.2f}") + "\t" +  str(SSIM) + "\t" +  (f"{UQI:.2f}") + "\t" +  (f"{compRatio:.2f}"))
 
 def dwtAnalyzer(givenImage, name):
     # Runs a given image through DWT. Prints all metrics calculated. 
@@ -109,7 +121,12 @@ def dwtAnalyzer(givenImage, name):
         SSIM = metrics.ssim(inputImage, compressedImage[:axisOne,:axisTwo])
         UQI = metrics.uqi(inputImage, compressedImage[:axisOne,:axisTwo])
 
-    print(name + "\tDWT" + "\t" + (f"{endTime-startTime:.2f}") + "\t" + (f"{MSE:.2f}") + "\t" +  (f"{PSNR:.2f}") + "\t" +  str(SSIM) + "\t" +  (f"{UQI:.2f}"))
+    # Compression ratio for the image.
+    inputSize = inputImage.nbytes
+    outputSize = compressedImage.nbytes
+    compRatio = outputSize/inputSize
+
+    print(name + "\tDWT" + "\t" + (f"{endTime-startTime:.2f}") + "\t" + (f"{MSE:.2f}") + "\t" +  (f"{PSNR:.2f}") + "\t" +  str(SSIM) + "\t" +  (f"{UQI:.2f}") + "\t" +  (f"{compRatio:.2f}"))
 
 def btcAnalyzer(givenImage, name):
     # Runs a given image through BTC. Prints all metrics calculated. 
@@ -127,6 +144,11 @@ def btcAnalyzer(givenImage, name):
     SSIM = metrics.ssim(inputImage, compressedImage)
     UQI = metrics.uqi(inputImage, compressedImage)
 
-    print(name + "\tBTC" + "\t" + (f"{endTime-startTime:.2f}") + "\t" + (f"{MSE:.2f}") + "\t" +  (f"{PSNR:.2f}") + "\t" +  str(SSIM) + "\t" +  (f"{UQI:.2f}"))
+    # Compression ratio for the image.
+    inputSize = inputImage.nbytes
+    outputSize = compressedImage.nbytes
+    compRatio = outputSize/inputSize
+
+    print(name + "\tBTC" + "\t" + (f"{endTime-startTime:.2f}") + "\t" + (f"{MSE:.2f}") + "\t" +  (f"{PSNR:.2f}") + "\t" +  str(SSIM) + "\t" +  (f"{UQI:.2f}") + "\t" +  (f"{compRatio:.2f}"))
 
 main()
