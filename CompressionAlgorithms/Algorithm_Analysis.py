@@ -48,9 +48,9 @@ def directorySearch():
     imageList = []
     namesList = []
     parentDirectory = Path(str(os.getcwd()))
-    imageDirectory = str(parentDirectory) + str(r"\Images")
+    imageDirectory = os.path.join(parentDirectory, "Images")
     for file in os.listdir(imageDirectory):
-        filePath = str(os.path.abspath(imageDirectory) + "\\" + file)
+        filePath = os.path.join(os.path.abspath(imageDirectory), file)
         imageList.append(filePath)
         namesList.append(file)
 
