@@ -62,30 +62,31 @@ def directorySearch():
 
 
 def dctAnalyzer(givenImage, name):
-    # Runs a given image through DCT. Prints all metrics calculated.
+    # Runs a given image through DCT. Prints all metrics calculated. 
 
-    inputHolder = Image.open(givenImage)
-    inputImage = np.array(inputHolder, dtype=np.uint8)
-
-    if len(inputImage.shape) == 2:
-        # Converts image from 1 color channel to RGB 3 channel.
-        inputImage = cv2.cvtColor(inputImage, cv2.COLOR_GRAY2RGB)
-
+    inputImage = cv2.imread(givenImage)
+    
     # DCT Analysis
     startTime = time.perf_counter()
-    compressedImage = cv2.dct(np.float32(cv2.cvtColor(inputImage, cv2.COLOR_BGR2GRAY)))
+    compressedImage = compressImage(inputImage)
     endTime = time.perf_counter()
+
     # The four quality metrics used for this project.
-    compressedImage = cv2.cvtColor(compressedImage, cv2.COLOR_GRAY2RGB)
     MSE = metrics.mse(inputImage, compressedImage)
     PSNR = metrics.psnr(inputImage, compressedImage)
     SSIM = metrics.ssim(inputImage, compressedImage)
     UQI = metrics.uqi(inputImage, compressedImage)
 
+    # Test code for displaying output.
+    # cv2.imshow("Input", inputImage)
+    # cv2.imshow("Output", compressedImage)
+    # cv2.waitKey(0)
+    # cv2.destroyAllWindows()
+
     # Compression ratio for the image.
     inputSize = inputImage.nbytes
     outputSize = compressedImage.nbytes
-    compRatio = outputSize / inputSize
+    compRatio = outputSize/inputSize
 
     print(
         name
