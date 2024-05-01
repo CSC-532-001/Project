@@ -7,6 +7,7 @@ Herleeyandi Markoni
 import numpy as np
 import math
 
+
 def btc_block(img_block):
     """
     This function will calculate the coefficient and bitmap of the BTC Algorithm.
@@ -23,7 +24,7 @@ def btc_block(img_block):
     result = img_block.copy()
     for i in range(0, img_block.shape[0]):
         for j in range(0, img_block.shape[1]):
-            if (img_block[i, j] >= h):
+            if img_block[i, j] >= h:
                 bitmap[i, j] = 1
                 result[i, j] = round(b, 0)
             else:
@@ -40,7 +41,9 @@ def btc_manual(img, block):
     count = 0
     for i in range(0, img.shape[0], block):
         for j in range(0, img.shape[1], block):
-            bitmap[i: i + block, j: j + block], result[i: i + block, j: j + block] = btc_block(
-                img[i: i + block, j: j + block])
+            (
+                bitmap[i : i + block, j : j + block],
+                result[i : i + block, j : j + block],
+            ) = btc_block(img[i : i + block, j : j + block])
             count += 1
-    return bitmap, result
+    return result
