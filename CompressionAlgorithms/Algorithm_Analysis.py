@@ -109,8 +109,7 @@ def dctAnalyzer(givenImage, name):
 def dwtAnalyzer(givenImage, name):
     # Runs a given image through DWT. Prints all metrics calculated.
 
-    inputHolder = Image.open(givenImage)
-    inputImage = np.array(inputHolder, dtype=np.uint8)
+    inputImage = cv2.imread(givenImage)
 
     # DWT Analysis
     startTime = time.perf_counter()
@@ -135,6 +134,12 @@ def dwtAnalyzer(givenImage, name):
         PSNR = metrics.psnr(inputImage, compressedImage[:axisOne, :axisTwo])
         SSIM = metrics.ssim(inputImage, compressedImage[:axisOne, :axisTwo])
         UQI = metrics.uqi(inputImage, compressedImage[:axisOne, :axisTwo])
+
+    # Test code for displaying output.
+    # cv2.imshow("Input", inputImage)
+    # cv2.imshow("Output", compressedImage/255)
+    # cv2.waitKey(0)
+    # cv2.destroyAllWindows()
 
     # Compression ratio for the image.
     inputSize = inputImage.nbytes
