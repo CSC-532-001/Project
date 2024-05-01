@@ -62,7 +62,7 @@ def dctAnalyzer(givenImage, name):
     # Runs a given image through DCT. Prints all metrics calculated. 
 
     inputHolder = Image.open(givenImage)
-    inputImage = np.array(inputHolder, dtype=np.ndarray)
+    inputImage = np.array(inputHolder, dtype=np.uint8)
 
     # DCT Analysis
     startTime = time.perf_counter()
