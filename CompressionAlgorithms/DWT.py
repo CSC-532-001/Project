@@ -34,5 +34,6 @@ def compress(img, ratio):
         compressed_coeffs.append(level_compressed_coeffs)
 
     return compressed_coeffs
+
 def decompress_image(coeffs):
     return pywt.waverec2(coeffs, "haar")

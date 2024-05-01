@@ -22,17 +22,17 @@ def main():
     imagesToRun, names = directorySearch()
     print("Image\tAlgorithm\tRuntime\tMSE\tPSNR\tSSIM\tUQI")
     
-    # DCT Testing
-    countDCT = 0
-    for givenImage in (imagesToRun):
-        dctAnalyzer(givenImage, names[countDCT])
-        countDCT += 1
-
-    # # DWT Testing
-    # countDWT = 0
+    # # DCT Testing
+    # countDCT = 0
     # for givenImage in (imagesToRun):
-    #     dwtAnalyzer(givenImage, names[countDWT])
-    #     countDWT += 1 
+    #     dctAnalyzer(givenImage, names[countDCT])
+    #     countDCT += 1
+
+    # DWT Testing
+    countDWT = 0
+    for givenImage in (imagesToRun):
+        dwtAnalyzer(givenImage, names[countDWT])
+        countDWT += 1 
 
 
 def directorySearch():
@@ -72,17 +72,31 @@ def dwtAnalyzer(givenImage, name):
     # Runs a given image through DWT. Prints all metrics calculated. 
 
     inputHolder = Image.open(givenImage)
-    inputImage = np.array(inputHolder, dtype=np.float64)
+    inputImage = np.array(inputHolder, dtype=np.uint8)
 
     # DWT Analysis
     startTime = time.perf_counter()
     compressedImage = wavelet_transform(inputImage)
     endTime = time.perf_counter()
-    # The four quality metrics used for this project. 
-    MSE = metrics.mse(inputImage, compressedImage)
-    PSNR = metrics.psnr(inputImage, compressedImage)
-    SSIM = metrics.ssim(inputImage, compressedImage)
-    UQI = metrics.uqi(inputImage, compressedImage)
+
+    # Getting shape axes.
+    shapeList = np.shape(inputImage)
+    axisOne = shapeList[0]
+    axisTwo = shapeList[1]
+
+    # Image shape handling to display the four quality metrics used for this project.
+    if len((np.shape(inputImage))) == 3:
+        axisThree = shapeList[2]
+        MSE = metrics.mse(inputImage, compressedImage[:axisOne,:axisTwo,:axisThree])
+        PSNR = metrics.psnr(inputImage, compressedImage[:axisOne,:axisTwo,:axisThree])
+        SSIM = metrics.ssim(inputImage, compressedImage[:axisOne,:axisTwo,:axisThree])
+        UQI = metrics.uqi(inputImage, compressedImage[:axisOne,:axisTwo,:axisThree])
+    # Image shape handling to display the four quality metrics used for this project. 
+    if len((np.shape(inputImage))) == 2:
+        MSE = metrics.mse(inputImage, compressedImage[:axisOne,:axisTwo])
+        PSNR = metrics.psnr(inputImage, compressedImage[:axisOne,:axisTwo])
+        SSIM = metrics.ssim(inputImage, compressedImage[:axisOne,:axisTwo])
+        UQI = metrics.uqi(inputImage, compressedImage[:axisOne,:axisTwo])
 
     print(name + "\tDWT" + "\t" + (f"{endTime-startTime:.2f}") + "\t" + (f"{MSE:.2f}") + "\t" +  (f"{PSNR:.2f}") + "\t" +  str(SSIM) + "\t" +  (f"{UQI:.2f}"))
 

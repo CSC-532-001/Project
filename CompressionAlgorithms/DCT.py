@@ -109,14 +109,14 @@ def padImageToBlockSize(image, blockSize):
 # print("Pick your quality 1-99, less quality means compression")
 # uInput = int(input())
 
-image = loadImage(r"Images\Soccer_Ball.jpg")
-imageCompressed = compressImage(image)
-result = Image.fromarray(imageCompressed, "YCbCr").convert("RGB")
-result.show()
+# image = loadImage(r"Images\Soccer_Ball.jpg")
+# imageCompressed = compressImage(image)
+# result = Image.fromarray(imageCompressed, "YCbCr").convert("RGB")
+# result.show()
 
-"""
-Results are saved in Results Folder
+# """
+# Results are saved in Results Folder
 
-"""
+# """
 
-result.save("Results/compressedImageSoccer.jpg", "JPEG")
+# result.save("Results/compressedImageSoccer.jpg", "JPEG")
