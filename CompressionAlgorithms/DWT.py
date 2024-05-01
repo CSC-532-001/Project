@@ -8,7 +8,10 @@ def wavelet_transform(img, ratio=0.5):
 def compress(img, ratio):
     coeffs = pywt.wavedec2(img, 'haar', 2)
 
-    flattened_coeffs = np.concatenate([c.flatten() for c in coeffs])
+    print(coeffs[0])
+    print(coeffs[1])
+
+    flattened_coeffs = np.concatenate([c for c in coeffs])
     sorted_indices = np.argsort(np.abs(flattened_coeffs))
 
     # keep only the most important coefficients
