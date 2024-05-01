@@ -17,7 +17,7 @@ def loadImage(file):
 
 
 def rgbToYCBCR(image):
-    # These numbers are a part of a formula, provided by ITU-R BT.601 standard, used in SDTV (Standard-Definition Television).
+    # These numbers are a part of a formula, provided by ITU-R BT.601 standard, used in SDTV (Standard-Definition Television). Provided by ChatGPT.
     nform = np.array(
         [
             [0.299, 0.587, 0.114],  # The Y row.
@@ -71,7 +71,7 @@ def compressImage(image, blockSize=int(8), quality=int(50)):
 
 
 def quantizationTable(quality):
-    # Array is standardized by the JPEG(Joint Photographic Experts Group) image compression standard. https://www.sciencedirect.com/science/article/pii/S1742287608000285
+    # Array is standardized by the JPEG(Joint Photographic Experts Group) image compression standard. Provided by ChatGPT.
     qTable = np.array(
         [
             [16, 11, 10, 16, 24, 40, 51, 61],
