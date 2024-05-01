@@ -49,11 +49,15 @@ def load_single_image(image):
 
 
 def array2PIL(arr):
-    mode = "RGBA"
+    mode = "RGBA" if len(arr[0]) == 4 else "L"  # Check if it's RGBA or grayscale
     shape = arr.shape
-    arr = arr.reshape(arr.shape[0] * arr.shape[1], arr.shape[2])
-    if len(arr[0]) == 3:
-        arr = np.c_[arr, 255 * np.ones((len(arr), 1), np.uint8)]
+
+    if len(shape) == 3:  # If it's a color image
+        arr = arr.reshape(arr.shape[0] * arr.shape[1], arr.shape[2])
+        if len(arr[0]) == 3:  # If it's RGB, add an alpha channel
+            arr = np.c_[arr, 255 * np.ones((len(arr), 1), np.uint8)]
+    elif len(shape) == 2:  # If it's a grayscale image
+        mode = "L"
 
     return Image.frombuffer(
         mode, (shape[1], shape[0]), arr.tostring(), "raw", mode, 0, 1
