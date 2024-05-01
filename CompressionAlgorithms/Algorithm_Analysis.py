@@ -8,7 +8,7 @@ import sewar.full_ref as metrics
 
 from DCT import compressImage
 from DWT import wavelet_transform
-from BTC import btc_block
+from BTC import btc_compress
 from pathlib import Path
 from PIL import Image
 
@@ -35,10 +35,10 @@ def main():
         countDWT += 1 
 
     # BTC Testing
-    # countBTC = 0
-    # for givenImage in (imagesToRun):
-    #     btcAnalyzer(givenImage, names[countBTC])
-    #     countBTC += 1 
+    countBTC = 0
+    for givenImage in (imagesToRun):
+        btcAnalyzer(givenImage, names[countBTC])
+        countBTC += 1 
 
 
 
@@ -119,7 +119,7 @@ def btcAnalyzer(givenImage, name):
 
     #BTC Analysis
     startTime = time.perf_counter()
-    compressedImage = btc_block(inputImage)
+    compressedImage = btc_compress(inputImage)
     endTime = time.perf_counter()
     # The four quality metrics used for this project. 
     MSE = metrics.mse(inputImage, compressedImage)
