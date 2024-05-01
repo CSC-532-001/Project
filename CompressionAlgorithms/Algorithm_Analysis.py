@@ -2,10 +2,11 @@
 
 import os
 import time
-import sewar.full_ref as metrics
+import cv2
 import numpy as np
+import sewar.full_ref as metrics
 
-from DCT import rgbToYCBCR
+from DCT import compressImage
 from DWT import wavelet_transform
 from BTC import btc_block
 from pathlib import Path
@@ -62,9 +63,13 @@ def dctAnalyzer(givenImage, name):
     inputHolder = Image.open(givenImage)
     inputImage = np.array(inputHolder, dtype=np.uint8)
 
+    if len(inputImage.shape) == 2:
+        # Converts image from 1 color channel to RGB 3 channel.
+        inputImage = cv2.cvtColor(inputImage, cv2.COLOR_GRAY2RGB)
+
     # DCT Analysis
     startTime = time.perf_counter()
-    compressedImage = rgbToYCBCR(inputImage)
+    compressedImage = compressImage(inputImage)
     endTime = time.perf_counter()
     # The four quality metrics used for this project. 
     MSE = metrics.mse(inputImage, compressedImage)

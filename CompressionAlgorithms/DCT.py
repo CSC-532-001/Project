@@ -63,8 +63,6 @@ def compressImage(image, blockSize=int(8), quality=int(50)):
                         i : i + blockSize, j : j + blockSize, channel
                     ] = idctBlock
 
-    print(compressedImage)
-
     # Crop the padded areas off the compressed image
     compressedImage = compressedImage[:originalHeight, :originalWidth, :]
     return np.clip(compressedImage, 0, 255).astype(np.uint8)
@@ -84,7 +82,7 @@ def quantizationTable(quality):
             [72, 92, 95, 98, 112, 100, 103, 99],
         ]
     )
-    print(qTable)
+
     return qTable * (100 - quality) / 50
 
 
