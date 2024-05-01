@@ -2,7 +2,7 @@
 
 This project was conducted by Kyle Moran, James Burriss, and Landon Casstevens. 
 
-The code seen here assists with the analysis of multiple lossy image compression algorithms. Specifically, the comparison between Discrete Cosine Transform (DCT), Discrete Wavelet Transform (DWT), Convolutional Nerual Networks (CNN), and JPG compression algorithms. This work was done in regards to applying compression algorithms to Internet of Things (IoT) devices, which generally suffer from low processing power and limited network bandwidth. 
+The code seen here assists with the analysis of multiple lossy image compression algorithms. Specifically, the comparison between Discrete Cosine Transform (DCT), Discrete Wavelet Transform (DWT), Convolutional Nerual Networks (CNN), and JPG compression algorithms. 
 
 # Package Guidance
 
