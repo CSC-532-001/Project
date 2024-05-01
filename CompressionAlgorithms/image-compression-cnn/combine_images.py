@@ -144,8 +144,6 @@ def make_quality_compression(original, sal):
                     qq = low
                 if qq > high:
                     qq = high
-                
-                
 
                 k_copy[i, j, l] = img_qualities[qq][i, j, l]
 
@@ -168,8 +166,8 @@ def make_quality_compression(original, sal):
 
     out_img = array2PIL(k_copy)
 
-    if out_img.mode == 'RGBA':
-        out_img = out_img.convert('RGB')
+    if out_img.mode == "RGBA":
+        out_img = out_img.convert("RGB")
 
     if args.find_best:
         out_name = (

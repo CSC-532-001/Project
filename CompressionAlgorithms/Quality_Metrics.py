@@ -1,8 +1,11 @@
 import numpy as np
 import sewar.full_ref as metrics
 
+
 class QualityMetrics:
-    def __init__(self, original_img: np.ndarray, compressed_image: np.ndarray, is_greyscale = True):
+    def __init__(
+        self, original_img: np.ndarray, compressed_image: np.ndarray, is_greyscale=True
+    ):
         self.img = original_img
         self.img2 = compressed_image
 
@@ -20,5 +23,6 @@ class QualityMetrics:
         self.sam = metrics.sam(self.img, self.img2)
         self.rase = metrics.rase(self.img, self.img2)
         self.vif = metrics.vifp(self.img, self.img2)
+
 
 # Note: all of these are full-ref comparisons
