@@ -17,6 +17,8 @@ If using VS Code, within the VS Code command (cmd) terminal, run the following:
 + `py -m pip install scikit-image`
 + `py -m pip install tensorflow`
 
-images recieved from
+# Outside Resources
+
+Images recieved from
 https://fki.tic.heia-fr.ch/databases/download-the-iam-handwriting-database
 https://sipi.usc.edu/database/database.php?volume=misc

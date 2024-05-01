@@ -9,6 +9,7 @@ import numpy as np
 
 from DCT import rgbToYCBCR
 from DWT import wavelet_transform
+from BTC import btc_block
 from pathlib import Path
 from PIL import Image
 
@@ -29,10 +30,17 @@ def main():
     #     countDCT += 1
 
     # DWT Testing
-    countDWT = 0
+    # countDWT = 0
+    # for givenImage in (imagesToRun):
+    #     dwtAnalyzer(givenImage, names[countDWT])
+    #     countDWT += 1 
+
+    # BTC Testing
+    countBTC = 0
     for givenImage in (imagesToRun):
-        dwtAnalyzer(givenImage, names[countDWT])
-        countDWT += 1 
+        btcAnalyzer(givenImage, names[countBTC])
+        countBTC += 1 
+
 
 
 def directorySearch():
@@ -99,5 +107,23 @@ def dwtAnalyzer(givenImage, name):
         UQI = metrics.uqi(inputImage, compressedImage[:axisOne,:axisTwo])
 
     print(name + "\tDWT" + "\t" + (f"{endTime-startTime:.2f}") + "\t" + (f"{MSE:.2f}") + "\t" +  (f"{PSNR:.2f}") + "\t" +  str(SSIM) + "\t" +  (f"{UQI:.2f}"))
+
+def btcAnalyzer(givenImage, name):
+    # Runs a given image through BTC. Prints all metrics calculated. 
+
+    inputHolder = Image.open(givenImage)
+    inputImage = np.array(inputHolder, dtype=np.ndarray)
+
+    # DCT Analysis
+    startTime = time.perf_counter()
+    compressedImage = btc_block(inputImage)
+    endTime = time.perf_counter()
+    # The four quality metrics used for this project. 
+    MSE = metrics.mse(inputImage, compressedImage)
+    PSNR = metrics.psnr(inputImage, compressedImage)
+    SSIM = metrics.ssim(inputImage, compressedImage)
+    UQI = metrics.uqi(inputImage, compressedImage)
+
+    print(name + "\tBTC" + "\t" + (f"{endTime-startTime:.2f}") + "\t" + (f"{MSE:.2f}") + "\t" +  (f"{PSNR:.2f}") + "\t" +  str(SSIM) + "\t" +  (f"{UQI:.2f}"))
 
 main()
