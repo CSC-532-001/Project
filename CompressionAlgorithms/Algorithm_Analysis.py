@@ -24,22 +24,22 @@ def main():
     print("Image\tAlgorithm\tRuntime\tMSE\tPSNR\tSSIM\tUQI")
     
     # # DCT Testing
-    # countDCT = 0
-    # for givenImage in (imagesToRun):
-    #     dctAnalyzer(givenImage, names[countDCT])
-    #     countDCT += 1
+    countDCT = 0
+    for givenImage in (imagesToRun):
+        dctAnalyzer(givenImage, names[countDCT])
+        countDCT += 1
 
     # DWT Testing
-    # countDWT = 0
-    # for givenImage in (imagesToRun):
-    #     dwtAnalyzer(givenImage, names[countDWT])
-    #     countDWT += 1 
+    countDWT = 0
+    for givenImage in (imagesToRun):
+        dwtAnalyzer(givenImage, names[countDWT])
+        countDWT += 1 
 
     # BTC Testing
-    countBTC = 0
-    for givenImage in (imagesToRun):
-        btcAnalyzer(givenImage, names[countBTC])
-        countBTC += 1 
+    # countBTC = 0
+    # for givenImage in (imagesToRun):
+    #     btcAnalyzer(givenImage, names[countBTC])
+    #     countBTC += 1 
 
 
 
