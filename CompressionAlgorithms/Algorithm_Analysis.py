@@ -1,7 +1,5 @@
 # Written by Landon Casstevens
 
-# For running: py Algorithm_Analysis.py
-
 import os
 import time
 import sewar.full_ref as metrics
@@ -13,7 +11,7 @@ from BTC import btc_block
 from pathlib import Path
 from PIL import Image
 
-# Getting rid of a useless sewar warning message. May need to disable during bug finding.
+# Getting rid of a sewar format warning message. May need to disable during bug finding.
 import warnings
 warnings.filterwarnings("ignore")
 
@@ -114,7 +112,7 @@ def btcAnalyzer(givenImage, name):
     inputHolder = Image.open(givenImage)
     inputImage = np.array(inputHolder, dtype=np.ndarray)
 
-    # DCT Analysis
+    #BTC Analysis
     startTime = time.perf_counter()
     compressedImage = btc_block(inputImage)
     endTime = time.perf_counter()
