@@ -167,8 +167,7 @@ def dwtAnalyzer(givenImage, name):
 def btcAnalyzer(givenImage, name):
     # Runs a given image through BTC. Prints all metrics calculated.
 
-    inputHolder = Image.open(givenImage)
-    inputImage = np.array(inputHolder, dtype=np.ndarray)
+    inputImage = cv2.imread(givenImage)
 
     # BTC Analysis
     startTime = time.perf_counter()
@@ -179,6 +178,12 @@ def btcAnalyzer(givenImage, name):
     PSNR = metrics.psnr(inputImage, compressedImage)
     SSIM = metrics.ssim(inputImage, compressedImage)
     UQI = metrics.uqi(inputImage, compressedImage)
+
+    # Test code for displaying output.
+    # cv2.imshow("Input", inputImage)
+    # cv2.imshow("Output", np.float32(compressedImage))
+    # cv2.waitKey(0)
+    # cv2.destroyAllWindows()
 
     # Compression ratio for the image.
     inputSize = inputImage.nbytes
