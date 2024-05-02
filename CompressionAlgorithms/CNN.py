@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 
 project = os.path.join(os.path.expanduser("~"), "Project")
 
@@ -6,13 +7,15 @@ project = os.path.join(os.path.expanduser("~"), "Project")
 def process_file(filename):
     generate_map_command = f"cd {project}/CompressionAlgorithms/image-compression-cnn && python3 generate_map.py ../../Images/{filename}.tiff"
     os.system(generate_map_command)
-
     combine_images_command = f"cd {project}/CompressionAlgorithms/image-compression-cnn &&  python3 combine_images.py -image ../../Images/{filename}.tiff -map ./output/{filename}_map.jpg"
     os.system(combine_images_command)
 
 
 def main():
-    folder_path = f"{project}/Images"
+
+    project = Path(str(os.getcwd()))
+    folder_path =os.path.join(project, "Images")
+
 
     # List all files in the folder
     files = os.listdir(folder_path)

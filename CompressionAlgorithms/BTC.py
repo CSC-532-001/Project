@@ -3,7 +3,7 @@ from skimage.measure import block_reduce
 
 # Block Truncation Coding
 
-def btc_compress(img: np.ndarray, block=3):
+def btc_compress(img: np.ndarray, block=4):
     if len(img.shape) == 2:
         reduced_image = block_reduce(img, (block, block), func=np.mean)
         expanded = np.repeat(np.repeat(reduced_image, block, axis=0), block, axis=1)
