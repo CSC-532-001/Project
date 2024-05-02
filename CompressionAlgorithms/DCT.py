@@ -34,7 +34,7 @@ def rgbToYCBCR(image):
     )  # This will convert imageYCBCR to an unsigned 8-bit integer. It can clips values outside 0 - 255 range. This can cause minor lossyness.
 
 
-def compressImage(image, blockSize=int(8), quality=int(50)):
+def compressImage(image, blockSize=int(8), quality=int(20)):
     originalHeight, originalWidth, _ = image.shape
     paddedImage = padImageToBlockSize(image, blockSize)
     (
@@ -63,8 +63,6 @@ def compressImage(image, blockSize=int(8), quality=int(50)):
                         i : i + blockSize, j : j + blockSize, channel
                     ] = idctBlock
 
-    print(compressedImage)
-
     # Crop the padded areas off the compressed image
     compressedImage = compressedImage[:originalHeight, :originalWidth, :]
     return np.clip(compressedImage, 0, 255).astype(np.uint8)
@@ -84,7 +82,7 @@ def quantizationTable(quality):
             [72, 92, 95, 98, 112, 100, 103, 99],
         ]
     )
-    print(qTable)
+
     return qTable * (100 - quality) / 50
 
 
@@ -109,14 +107,14 @@ def padImageToBlockSize(image, blockSize):
 # print("Pick your quality 1-99, less quality means compression")
 # uInput = int(input())
 
-image = loadImage(r"Images\Soccer_Ball.jpg")
-imageCompressed = compressImage(image)
-result = Image.fromarray(imageCompressed, "YCbCr").convert("RGB")
-result.show()
+# image = loadImage(r"Images\Soccer_Ball.jpg")
+# imageCompressed = compressImage(image)
+# result = Image.fromarray(imageCompressed, "YCbCr").convert("RGB")
+# result.show()
 
-"""
-Results are saved in Results Folder
+# """
+# Results are saved in Results Folder
 
-"""
+# """
 
-result.save("Results/compressedImageSoccer.jpg", "JPEG")
+# result.save("Results/compressedImageSoccer.jpg", "JPEG")
