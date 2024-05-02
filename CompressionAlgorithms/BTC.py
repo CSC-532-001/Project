@@ -3,14 +3,13 @@ from skimage.measure import block_reduce
 
 # Block Truncation Coding
 
-def btc_compress(img: np.ndarray, block=4):
-    if len(img.shape) == 2:
-        reduced_image = block_reduce(img, (block, block), func=np.mean)
-        expanded = np.repeat(np.repeat(reduced_image, block, axis=0), block, axis=1)
-        expanded = expanded[: img.shape[0], : img.shape[1]]
-    else:
-        reduced_image = block_reduce(img, (block, block, block), func=np.mean)
-        expanded = np.repeat(np.repeat(reduced_image, block, axis=0), block, axis=1)
-        expanded = expanded[: img.shape[0], : img.shape[1], : img.shape[2]]
+def btc_compress(img: np.ndarray, block=2):
 
-    return np.where(img > expanded, 1, 0)
+    reduced_image = block_reduce(img, block, func=np.mean).astype(np.uint8)
+
+    if len(img.shape) == 3:
+        reduced_image = block_reduce(img, (block, block, 1), func=np.mean).astype(np.uint8)
+
+
+    return reduced_image
+
